@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  ghotel.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:9798;http://+:9797
+    ports:
+      - "9797:9797"
+      - "9798:9798"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

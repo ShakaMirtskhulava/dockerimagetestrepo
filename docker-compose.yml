@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  ghotel.api:
+    image: ${DOCKER_REGISTRY-}ghotelapi
+    container_name: ghotel.api
+    build:
+      context: .
+      dockerfile: GHotel.API/Dockerfile
+    ports:
+    - "9797:9797"
+    - "9798:9798"
+
+  ghotel.database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ghotel.database
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Kjkszpj12@
+    volumes:
+      - ./.containers/ghotel-db:/var/lib/mssql/data
+    ports:
+      - "1433:1433"
+
+  ghotel.redis:
+    image: redis:7.2
+    container_name: ghotel.redis
+    ports:
+      - "6379:6379"
